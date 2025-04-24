@@ -1,10 +1,13 @@
-import { FC } from 'react'
+import { FC } from 'react';
+
+import { ApolloProvider } from '@/app/providers/ApolloProvider';
+import { Repositories } from '@/pages/Repositories';
 
 const App: FC = () => {
   return (
-    <>
-      <h1>Github search repo</h1>
-    </>
+    <ApolloProvider>
+      <Repositories />
+    </ApolloProvider>
   )
 }
 
