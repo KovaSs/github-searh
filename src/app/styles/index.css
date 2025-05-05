@@ -8,4 +8,7 @@
   /* Colors */
   --fgColor-default: #d1d7e0;
   --bgColor-default: #212830;
+  --fgColor-accent: #478be6;
+  --fgColor-gray: #9198a1;
+  --bColor-gray: #444c56
 }

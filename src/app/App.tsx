@@ -1,13 +1,16 @@
-import { FC } from 'react';
+import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
 
 import { ApolloProvider } from '@/app/providers/ApolloProvider';
-import { Repositories } from '@/pages/Repositories';
+import { AppRouter } from './providers/router';
 
-const App: FC = () => {
+const App: React.FC = () => {
   return (
-    <ApolloProvider>
-      <Repositories />
-    </ApolloProvider>
+    <BrowserRouter>
+      <ApolloProvider>
+        <AppRouter />
+      </ApolloProvider>
+    </BrowserRouter>
   )
 }
 
