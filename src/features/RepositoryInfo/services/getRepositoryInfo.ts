@@ -12,9 +12,12 @@ query GetRepository($name: String!, $owner: String!) {
 			login
 			url
 		}
-		languages(first:5) {
-			nodes {
-				name
+		languages(first:10) {
+			edges {
+				node {
+					name
+				}
+				size
 			}
 		}
 	}

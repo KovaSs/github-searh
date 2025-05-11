@@ -5,7 +5,7 @@ import { useQuery } from '@apollo/client';
 import { getRepositoryInfo } from '@/shared/const/router';
 import { StarIcon } from '@/shared/assets/icons';
 
-import { TOP_REPOS } from '../services/getRepositories'
+import { TOP_REPOS, GET_USER } from '../services/getRepositories'
 
 import css from './styles.module.css'
 
@@ -31,21 +31,29 @@ const toShortFormatDate = (date: string) => {
 export const RepositoriesList: React.FC = () => {
   const navigate = useNavigate();
 
+  const { loading: userLoading, error: userError, data: userData, called: userCalled } = useQuery(GET_USER);
+
+  const userLogin = userData?.viewer?.login;
+
   const { loading, error, data } = useQuery(TOP_REPOS, {
+    skip: !userCalled,
 		variables: {
-			queryString: 'user:KovaSs',
+			queryString: `user:${userLogin}`,
 			// page: '1',
 		}
 	});
+
 
   const goToRepositoryInfoPage = useCallback((owner: string, name: string) => () => {
     navigate(getRepositoryInfo(owner, name))
   }, [navigate]);
 
-  if (loading) return <p>Загрузка...</p>;
-  if (error) return <p>Ошибка! {error.message}</p>;
+  if (userLoading || loading) return <p>Загрузка...</p>;
+  if (userError) return <p>Ошибка загрузки юзера! {userError.message}</p>;
+  if (error) return <p>Ошибка загрузки списка репозиториев! {error.message}</p>;
 
-	console.log('data', data)
+	console.log('dataUser', userData);
+	console.log('data', data);
 
   return (
     <div className={css.repositoriesList}>

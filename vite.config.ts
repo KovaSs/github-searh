@@ -8,6 +8,10 @@ export default defineConfig(({ mode }) => {
 
   return {
     plugins: [svgr(), react()],
+    build: {
+      outDir: './build',
+      emptyOutDir: true, // also necessary
+    },
     resolve: {
       alias: [{ find: '@', replacement: '/src' }],
     },

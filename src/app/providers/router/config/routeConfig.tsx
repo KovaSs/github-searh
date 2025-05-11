@@ -1,4 +1,4 @@
-import { AppRoutes, getRouteMain, getRepositoryInfo } from "@/shared/const/router";
+import { AppRoutes, getRouteMain, repositoryInfoPath } from "@/shared/const/router";
 import { Repositories } from "@/pages/Repositories";
 import { NotFoundPage } from "@/pages/NotFoundPage";
 import { Repository } from "@/pages/Repository";
@@ -12,7 +12,7 @@ export const routeConfig: Record<AppRoutes, RouteProps> = {
   },
   [AppRoutes.REPOSITORY_DETAILS]: {
     element: <Repository />,
-    path: getRepositoryInfo(':owner', ':name'),
+    path: repositoryInfoPath,
   },
   // last
   [AppRoutes.NOT_FOUND]: {

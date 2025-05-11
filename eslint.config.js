@@ -23,6 +23,14 @@ export default tseslint.config(
         'warn',
         { allowConstantExport: true },
       ],
+    /* Правило группировки импортов и пустого места между ними */
+    'import/order': [
+      'error',
+      {
+        'newlines-between': 'always',
+        groups: ['builtin', 'external', 'internal', 'index', 'object', 'parent', 'sibling'],
+      },
+    ],
     },
   },
 )
