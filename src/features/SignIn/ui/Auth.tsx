@@ -6,7 +6,7 @@ import { mainPagePath } from '@/shared/const/router';
 import { HStack, VStack } from '@/shared/ui/Stack';
 import { Input } from '@/shared/ui/Input';
 
-import { fetchUserFx, $user, $error } from '../model/store';
+import { fetchUserFx, $error } from '../model/store';
 
 import cls from './styles.module.css';
 

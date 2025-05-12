@@ -7,6 +7,9 @@
 
   /* Colors */
   --control-transparent-bgColor-hover: #656c7626;
+  --control-borderColor-rest: #3d444d;
+  --control-bgColor-rest: #2a313c;
+  --control-bgColor-hover: #2f3742;
   --fgColor-danger: #e5534b;
   --fgColor-default: #d1d7e0;
   --bgColor-default: #212830;

@@ -1,7 +1,12 @@
 export interface FetchRepositoryResponse {
-	edges: {
-		node: Repository;
-	}[];
+	edges: { node: Repository }[];
+  pageInfo: {
+    hasPreviousPage: boolean;
+    hasNextPage: boolean;
+    startCursor: string;
+    endCursor: string;
+  };
+  repositoryCount: number;
 }
 
 export interface Repository {

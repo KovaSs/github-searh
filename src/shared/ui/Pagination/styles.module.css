@@ -1,0 +1,23 @@
+
+.paginationItem {
+	background-color: var(--control-bgColor-rest);
+	border: 1px solid rgb(61, 68, 77);
+	color: var(--fgColor-default);
+  border-radius: 6px;
+	cursor: pointer;
+  height: 32px;
+  width: 32px;
+}
+
+.paginationItemActive {
+	border-color: white;
+}
+
+.paginationItem:hover {
+	background-color: var(--control-borderColor-rest);
+	background-color: var(--control-bgColor-hover);
+}
+
+.paginationItemDisabled {
+	cursor: not-allowed;
+}

@@ -25,7 +25,7 @@ function transformValueToCorrectType(
  * Функция получения search параметров из строки запроса в URL
  * @param params
  */
-export function getQueryParams<T extends Record<string, DefaultValueType>>(params: Options): T {
+export function getQueryParams<T>(params: Options): T {
   const searchParams = new URLSearchParams(window.location.search);
 
 	return Object.entries(params).reduce((acc: T, [key, options]) => {
