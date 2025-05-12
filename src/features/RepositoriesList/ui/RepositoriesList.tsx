@@ -7,7 +7,6 @@ import { getRepositoryInfo } from '@/shared/const/router';
 import { Pagination, PaginationItem } from '@/shared/ui/Pagination';
 import { toShortFormatDate } from '@/shared/lib/date';
 import { VStack, HStack } from '@/shared/ui/Stack';
-import { Flex } from '@/shared/ui/Stack/Flex/Flex';
 import { SearchBar } from '@/shared/ui/SearchBar';
 import { useDebounce } from '@/shared/lib/hooks';
 import { StarIcon } from '@/shared/assets/icons';
