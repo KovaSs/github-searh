@@ -50,8 +50,6 @@ export const RepositoriesList: React.FC = () => {
   const [value, setValue] = useState(params.search);
   const [page, setPage] = useState(params.page);
 
-  console.log('totalCount', totalCount, pageCursors);
-
   const fetchRepositories = useDebounce((queryString: string, page: number, startCursor: string) => {
     fetchRepositoriesFx({ startCursor, queryString, page });
   }, 500);

@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 
 import type { RouteProps } from '@/app/types/router';
 import { mainPagePath } from '@/shared/const/router';
+import { HStack } from '@/shared/ui/Stack';
 
 import { routeConfig } from '../config/routeConfig';
 

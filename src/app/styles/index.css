@@ -17,3 +17,12 @@
   --fgColor-gray: #9198a1;
   --bColor-gray: #444c56
 }
+
+#root {
+  display: flex;
+  justify-content: center;
+}
+
+#root div:first-child {
+  max-width: 1200px;
+}

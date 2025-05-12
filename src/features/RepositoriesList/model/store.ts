@@ -26,7 +26,8 @@ $pageCursors.on(updatePageCursors, (cursorsMap, { page, pageInfo }) => {
 });
 
 export const fetchRepositoriesFx = createEffect(async ({ queryString, page = 1, startCursor }: { queryString: string; page?: number; startCursor?: string }) => {
-  addQueryParams({ search: queryString, page: String(page), startCursor });
+  // addQueryParams({ search: queryString, page: String(page), startCursor });
+  addQueryParams({ search: queryString });
 
   const cursorsMap = $pageCursors.getState();
   const isSavedActiveCursor = cursorsMap.has(startCursor);
