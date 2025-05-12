@@ -1,0 +1,13 @@
+.signinContainer {
+  border: 1px solid var(--bColor-gray);
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.block {
+  width: 50%;
+}
+
+.error {
+  color: var(--fgColor-danger);
+}

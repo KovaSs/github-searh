@@ -1,0 +1,11 @@
+.navigateIcon {
+  fill: var(--fgColor-default);
+}
+
+.navigateIconActive {
+  cursor: pointer;
+}
+
+.headerContent {
+  min-height: 50px;
+}

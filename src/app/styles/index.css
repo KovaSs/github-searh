@@ -6,6 +6,8 @@
   background-color: var(--bgColor-default);
 
   /* Colors */
+  --control-transparent-bgColor-hover: #656c7626;
+  --fgColor-danger: #e5534b;
   --fgColor-default: #d1d7e0;
   --bgColor-default: #212830;
   --fgColor-accent: #478be6;

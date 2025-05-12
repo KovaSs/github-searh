@@ -1,1 +1,1 @@
-export { Repository } from './ui/Repository';
+export { RepositoryAsync as Repository } from './ui/Repository.async';

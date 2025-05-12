@@ -1,0 +1,15 @@
+.headerLinkContainer {
+  line-height: 21px;
+  font-size: 14px;
+}
+
+.titleLink {
+  color: var(--fgColor-default);
+  text-decoration: none;
+  border-radius: 4px;
+  padding: 4px;
+}
+
+.titleLink:hover {
+  background: var(--control-transparent-bgColor-hover);
+}

@@ -2,8 +2,11 @@ import React, { memo, Suspense, useCallback } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
 import type { RouteProps } from '@/app/types/router';
+import { mainPagePath } from '@/shared/const/router';
 
 import { routeConfig } from '../config/routeConfig';
+
+import { ProtectedRoute } from './ProtectedRoute';
 
 const AppRouter: React.FC = () => {
 	const renderWithWrapper = useCallback((route: RouteProps) => {
@@ -11,7 +14,13 @@ const AppRouter: React.FC = () => {
 		return <Route key={route.path} path={route.path} element={element} />;
 	}, []);
 
-	return <Routes>{Object.values(routeConfig).map(renderWithWrapper)}</Routes>;
+	return (
+		<Routes>
+			<Route path={mainPagePath} element={<ProtectedRoute />}>
+				{Object.values(routeConfig).map(renderWithWrapper)}
+			</Route>
+		</Routes>
+	);
 };
 
 export default memo(AppRouter);

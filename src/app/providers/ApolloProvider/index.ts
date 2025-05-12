@@ -1,1 +1,1 @@
-export { ApolloProvider } from './ui/ApolloProvider';
+export { ApolloProvider, client as apolloClient } from './ui/ApolloProvider';

@@ -7,6 +7,7 @@ query GetRepository($name: String!, $owner: String!) {
 		description
 		pushedAt
 		name
+		url
 		owner {
 			avatarUrl
 			login

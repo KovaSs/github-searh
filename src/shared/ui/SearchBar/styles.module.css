@@ -1,0 +1,14 @@
+.inputContainer {
+  border: 1px solid var(--bColor-gray);
+  border-radius: 6px;
+  padding: 8px;
+}
+
+.inputField {
+  background-color: transparent;
+  color: var(--fgColor-gray);
+  font-size: 18px;
+  border: none;
+  width: 100%;
+  outline: 0;
+}

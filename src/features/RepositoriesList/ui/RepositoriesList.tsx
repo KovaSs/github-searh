@@ -1,80 +1,81 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import { Link, useNavigate } from "react-router";
-import { useQuery } from '@apollo/client';
+import { useUnit } from 'effector-react';
 
+import { getQueryParams, Options } from '@/shared/lib/url/getQueryParams';
 import { getRepositoryInfo } from '@/shared/const/router';
+import { toShortFormatDate } from '@/shared/lib/date';
+import { VStack, HStack } from '@/shared/ui/Stack';
+import { SearchBar } from '@/shared/ui/SearchBar';
+import { useDebounce } from '@/shared/lib/hooks';
 import { StarIcon } from '@/shared/assets/icons';
+import { Avatar } from '@/shared/ui/Avatar';
+import { Header } from '@/widgets/Header';
 
-import { TOP_REPOS, GET_USER } from '../services/getRepositories'
+import { $user } from '../../SignIn/model/store';
+import { fetchRepositoriesFx, $repositories, $error, $loading } from '../model/store';
+import type { Repository } from '../model/types'
 
-import css from './styles.module.css'
+import css from './styles.module.css';
 
-interface Repository {
-  stargazerCount: number;
-	updatedAt: string;
-	name: string;
-  url: string;
-	id: string;
-  owner: {
-    avatarUrl: string;
-    login: string;
-  }
-}
-
-const toShortFormatDate = (date: string) => {
-  const formattedDate = new Date(date).toLocaleDateString('en-GB', {
-    day: 'numeric', month: 'short', year: 'numeric'
-  });
-  return formattedDate;
-}
+const queryOptions: Options = {
+  search: { type: 'string' },
+};
 
 export const RepositoriesList: React.FC = () => {
   const navigate = useNavigate();
 
-  const { loading: userLoading, error: userError, data: userData, called: userCalled } = useQuery(GET_USER);
+  const params = getQueryParams<{ search: string }>(queryOptions);
 
-  const userLogin = userData?.viewer?.login;
+  const userData = useUnit($user);
+  const repositories = useUnit($repositories);
+  const loading = useUnit($loading);
+  const error = useUnit($error);
 
-  const { loading, error, data } = useQuery(TOP_REPOS, {
-    skip: !userCalled,
-		variables: {
-			queryString: `user:${userLogin}`,
-			// page: '1',
-		}
-	});
+  const [value, setValue] = useState(params.search);
 
+  const fetchRepositories = useDebounce((searchValue: string) => {
+    fetchRepositoriesFx({ queryString: searchValue || `user:${userData.login}`, page: 1 });
+  }, 500);
+
+  useEffect(() => {
+    fetchRepositories(value);
+  }, [value]);
 
   const goToRepositoryInfoPage = useCallback((owner: string, name: string) => () => {
     navigate(getRepositoryInfo(owner, name))
   }, [navigate]);
 
-  if (userLoading || loading) return <p>Загрузка...</p>;
-  if (userError) return <p>Ошибка загрузки юзера! {userError.message}</p>;
-  if (error) return <p>Ошибка загрузки списка репозиториев! {error.message}</p>;
+  const renderRepositories = () => {
+    if (loading) return <HStack justify="center">Загрузка...</HStack>;
+    if (error) return <HStack justify="center">Ошибка загрузки списка репозиториев! {error.message}</HStack>;
 
-	console.log('dataUser', userData);
-	console.log('data', data);
+    return repositories.map(({ node } : { node: Repository}) => (
+      <VStack key={node.id} className={css.repositoryContainer} onClick={goToRepositoryInfoPage(node.owner.login, node.name)} role="button">
+        <HStack className={css.titleBlock} gap='16'>
+          <Avatar src={node.owner.avatarUrl} alt={node.owner.login} />
+          <div className={css.title}>{node.name}</div>
+        </HStack>
+        <HStack className={css.titleBlock} gap="8">
+          <HStack className={css.starsBlock}>
+            <StarIcon className={css.starsIcon} />
+            <div>{node.stargazerCount}</div>
+          </HStack>
+          <div>Updated on {toShortFormatDate(node.updatedAt)}</div>
+          <Link className={css.link} to={node.url} target='_blank' onClick={(e) => e.stopPropagation()}>
+            Github link
+          </Link>
+        </HStack>
+      </VStack>
+    ))
+  }
 
   return (
-    <div className={css.repositoriesList}>
-      {data.search.edges.map(({ node } : { node: Repository}) => (
-        <div key={node.id} className={css.repositoryContainer} onClick={goToRepositoryInfoPage(node.owner.login, node.name)}>
-          <div className={css.titleBlock}>
-            <img className={css.avatar} src={node.owner.avatarUrl} alt={node.owner.login} />
-            <div className={css.title}>{node.name}</div>
-          </div>
-          <div className={css.titleBlock}>
-            <div className={css.starsBlock}>
-              <StarIcon className={css.starsIcon} />
-              <div>{node.stargazerCount}</div>
-            </div>
-            <div>Updated on {toShortFormatDate(node.updatedAt)}</div>
-            <Link className={css.link} to={node.url} target='_blank'>
-              Github link
-            </Link>
-          </div>
-        </div>
-      ))}
-    </div>
+    <VStack className={css.repositoriesList} gap="16" max>
+      <Header>
+        <SearchBar value={value} onChange={setValue} max />
+      </Header>
+      {renderRepositories()}
+    </VStack>
   );
 }

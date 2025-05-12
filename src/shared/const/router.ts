@@ -1,17 +1,21 @@
 export enum AppRoutes {
+	REPOSITORY_INFO = 'repository',
+	SIGNIN = 'signin',
 	MAIN = 'main',
-	REPOSITORY_DETAILS = 'repository',
 	// last
 	NOT_FOUND = 'not_found',
 }
 
 export const getRouteMain = () => '/';
-export const getRepositoryInfo = (owner: string, name: string) => `/repository/${owner}/${name}`;
+export const getRouteSignIn = () => `/${AppRoutes.SIGNIN}`;
+export const getRepositoryInfo = (owner: string, name: string) => `/${AppRoutes.REPOSITORY_INFO}/${owner}/${name}`;
 
+export const mainPagePath = getRouteMain();
+export const signinPagePath = getRouteSignIn();
 export const repositoryInfoPath = getRepositoryInfo(':owner', ':name');
 
-
 export const AppRouteByPathPattern: Record<string, AppRoutes> = {
-	[getRouteMain()]: AppRoutes.MAIN,
-	[repositoryInfoPath]: AppRoutes.REPOSITORY_DETAILS,
+	[signinPagePath]: AppRoutes.SIGNIN,
+	[mainPagePath]: AppRoutes.MAIN,
+	[repositoryInfoPath]: AppRoutes.REPOSITORY_INFO,
 };
